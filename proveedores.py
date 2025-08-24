@@ -1,8 +1,8 @@
 class Proveedor():
     def __init__(self, nit, nombre, direccion, telefono, correo, empresa):
         self.nit = nit
-        self.nombre = nombre
-        self.direccion = direccion
-        self.telefono = telefono
-        self.correo = correo
-        self.empresa = empresa
+        self._nombre = nombre
+        self._direccion = direccion
+        self._telefono = telefono
+        self._correo = correo
+        self._empresa = empresa
