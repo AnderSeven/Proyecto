@@ -1,4 +1,4 @@
-class proveedores():
+class Proveedor():
     def __init__(self, nit, nombre, direccion, telefono, correo, empresa):
         self.nit = nit
         self.nombre = nombre

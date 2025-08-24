@@ -1,4 +1,4 @@
-class ventas():
+class Venta():
     def __init__(self, id_venta, fecha, id_empleado, nit, total):
         self.id_venta = id_venta
         self.fecha = fecha
