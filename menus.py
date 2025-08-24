@@ -11,7 +11,7 @@ class Menus():
         print("8. Salir")
 
     def menu_categorias(self):
-        print("\n---Cagegorias---")
+        print("\n---Categorias---")
         print("1. Registrar categorias")
         print("2. Mostrar categorias")
         print("3. Modificar categoria")
