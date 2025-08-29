@@ -20,10 +20,6 @@ while a == False:
                             case 2:
                                 pass
                             case 3:
-                                pass
-                            case 4:
-                                pass
-                            case 5:
                                 s = True
                             case _:
                                 print("Opcion invalida")
@@ -41,10 +37,6 @@ while a == False:
                             case 2:
                                 pass
                             case 3:
-                                pass
-                            case 4:
-                                pass
-                            case 5:
                                 s = True
                             case _:
                                 print("Opcion invalida")
@@ -62,10 +54,6 @@ while a == False:
                             case 2:
                                 pass
                             case 3:
-                                pass
-                            case 4:
-                                pass
-                            case 5:
                                 s = True
                             case _:
                                 print("Opcion invalida")
@@ -83,10 +71,6 @@ while a == False:
                             case 2:
                                 pass
                             case 3:
-                                pass
-                            case 4:
-                                pass
-                            case 5:
                                 s = True
                             case _:
                                 print("Opcion invalida")
@@ -104,10 +88,6 @@ while a == False:
                             case 2:
                                 pass
                             case 3:
-                                pass
-                            case 4:
-                                pass
-                            case 5:
                                 s = True
                             case _:
                                 print("Opcion invalida")
@@ -127,10 +107,6 @@ while a == False:
                             case 3:
                                 pass
                             case 4:
-                                pass
-                            case 5:
-                                pass
-                            case 6:
                                 s = True
                             case _:
                                 print("Opcion invalida")
@@ -150,10 +126,6 @@ while a == False:
                             case 3:
                                 pass
                             case 4:
-                                pass
-                            case 5:
-                                pass
-                            case 6:
                                 s = True
                             case _:
                                 print("Opcion invalida")
@@ -162,7 +134,30 @@ while a == False:
             case 8:
                 s = False
                 while s == False:
-                    pass
+                    try:
+                        menu.menu_admin()
+                        opcion = int(input("Ingrese una opcion: "))
+                        match opcion:
+                            case 1:
+                                pass
+                            case 2:
+                                pass
+                            case 3:
+                                pass
+                            case 4:
+                                pass
+                            case 5:
+                                pass
+                            case 6:
+                                pass
+                            case 7:
+                                pass
+                            case 8:
+                                s = True
+                            case _:
+                                print("Opcion invalida")
+                    except Exception as ex:
+                        print(f"Ha ocurrido un error: {ex}")
             case 9:
                 print("Gracias por usar el sistema")
                 a = True
