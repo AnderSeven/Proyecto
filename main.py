@@ -160,6 +160,10 @@ while a == False:
                     except Exception as ex:
                         print(f"Ha ocurrido un error: {ex}")
             case 8:
+                s = False
+                while s == False:
+                    pass
+            case 9:
                 print("Gracias por usar el sistema")
                 a = True
             case _:
