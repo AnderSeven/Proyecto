@@ -5,3 +5,7 @@ class Compra():
         self.id_empleado = id_empleado
         self.nit = nit
         self._total = total
+
+class registro_compras():
+    def __init__(self):
+        self.diccionario_compras = {}

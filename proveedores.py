@@ -6,3 +6,7 @@ class Proveedor():
         self._telefono = telefono
         self._correo = correo
         self._empresa = empresa
+
+class registro_proveedores():
+    def __init__(self):
+        self.diccionario_proveedores = {}

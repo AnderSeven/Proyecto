@@ -6,3 +6,7 @@ class DetalleCompra():
         self.id_producto = id_producto
         self._subtotal = subtotal
         self._fecha_caducidad = fecha_caducidad
+
+class registro_detalle_compra():
+    def __init__(self):
+        self.diccionario_detalle_compra = {}

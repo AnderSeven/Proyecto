@@ -7,3 +7,7 @@ class Producto():
         self._total_compras = total_compras
         self._total_ventas = total_ventas
         self._stock = stock
+
+class registro_productos():
+    def __init__(self):
+        self.diccionario_productos = {}

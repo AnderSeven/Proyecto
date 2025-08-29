@@ -5,3 +5,7 @@ class Venta():
         self.id_empleado = id_empleado
         self.nit = nit
         self._total = total
+
+class registro_ventas():
+    def __init__(self):
+        self.diccionario_ventas = {}

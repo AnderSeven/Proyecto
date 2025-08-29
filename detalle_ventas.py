@@ -5,3 +5,7 @@ class DetalleVenta():
         self._cantidad = cantidad
         self.id_producto = id_producto
         self._subtotal = subtotal
+
+class registro_detalle_ventas():
+    def __init__(self):
+        self.diccionario_detalle_ventas = {}

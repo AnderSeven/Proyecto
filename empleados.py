@@ -6,3 +6,7 @@ class Empleado():
         self._telefono = telefono
         self._correo = correo
         self._puesto = puesto
+
+class registro_empleados():
+    def __init__(self):
+        self.diccionario_empleados = {}
