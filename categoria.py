@@ -29,4 +29,4 @@ class registro_categorias():
                     print(f"Ha ocurrido un error: {ex}")
             nombre = input("Ingrese el nombre de la categoria: ").strip().lower()
             self.diccionario_categorias[id_categoria] = Categoria(id_categoria, nombre)
-    #ahora que lo pienso en categorias en categorias solo podria hacerlo por el alfabeto
+    #ahora que lo pienso en categorias en categorias solo podria hacerlo por el alfabeto y tambien por orden de id de menor a mayor
