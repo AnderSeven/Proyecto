@@ -6,6 +6,7 @@ class Categoria():
 class registro_categorias():
     def __init__(self):
         self.diccionario_categorias = {}
+        self.cargar_categorias()
 
     def registrar_categorias(self):
         s = False
@@ -33,6 +34,9 @@ class registro_categorias():
             nombre = input("Ingrese el nombre de la categoria: ").strip().lower()
             self.diccionario_categorias[id_categoria] = Categoria(id_categoria, nombre)
             print("Categoria registrada en el sistema")
+        
+        self.guardar_categorias()
+        print("Datos de categorias guardados en el archivo")
 
     def _quick_sort_id(self, lista):
         if len(lista) <= 1:
@@ -75,3 +79,25 @@ class registro_categorias():
                     print(f"ID: {categoria.id_categoria} | Nombre: {categoria._nombre}")
             except Exception as ex:
                 print(f"Ha ocurrido un error: {ex}")
+
+    def guardar_categorias(self):
+        try:
+            with open("categorias.txt", "w") as archivo:
+                for categoria in self.diccionario_categorias.values():
+                    archivo.write(f"{categoria.id_categoria}:{categoria._nombre}\n")
+        except Exception as ex:
+            print(f"Ha ocurrido un error al guardar: {ex}")
+
+    def cargar_categorias(self):
+        try:
+            with open("categorias.txt", "r") as archivo:
+                for linea in archivo.readlines():
+                    if linea.strip():
+                        id_str, nombre = linea.strip().split(":")
+                        id_categoria = int(id_str)
+                        self.diccionario_categorias[id_categoria] = Categoria(id_categoria, nombre)
+            print("Categorias cargadas desde categorias.txt")
+        except FileNotFoundError:
+            print("No se encontro el archivo categorias.txt, se creara uno nuevo al guardar")
+        except Exception as ex:
+            print(f"Ha ocurrido un error al cargar: {ex}")
