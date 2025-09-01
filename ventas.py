@@ -10,6 +10,7 @@ class Venta():
 class registro_ventas():
     def __init__(self):
         self.diccionario_ventas = {}
+        self.cargar_ventas()
 
     def registrar_ventas(self, registro_empleados, registro_clientes, registro_productos):
         s = False
@@ -78,3 +79,29 @@ class registro_ventas():
         nueva_venta = Venta(id_venta, fecha, id_empleado, nit, total)
         self.diccionario_ventas[id_venta] = nueva_venta
         print(f"Venta #{id_venta} registrada con exito. Total: Q{total:.2f}")
+        self.guardar_ventas()
+        print("Datos de ventas guardados en el archivo")
+
+    def guardar_ventas(self):
+        try:
+            with open("ventas.txt", "w") as archivo:
+                for venta in self.diccionario_ventas.values():
+                    linea = f"{venta.id_venta}:{venta._fecha}:{venta.id_empleado}:{venta.nit}:{venta._total}\n"
+                    archivo.write(linea)
+        except Exception as ex:
+            print(f"Ha ocurrido un error al guardar ventas: {ex}")
+
+    def cargar_ventas(self):
+        try:
+            with open("ventas.txt", "r") as archivo:
+                for linea in archivo.readlines():
+                    if linea.strip():
+                        (id_venta_str, fecha, id_empleado_str, nit_val, total_str) = linea.strip().split(":")
+                        # El nit puede ser 'C/F' o un numero
+                        nit = int(nit_val) if nit_val.isdigit() else nit_val
+                        self.diccionario_ventas[int(id_venta_str)] = Venta(int(id_venta_str), fecha, int(id_empleado_str), nit, float(total_str))
+            print("Ventas cargadas desde ventas.txt")
+        except FileNotFoundError:
+            print("No se encontro el archivo ventas.txt, se creara uno nuevo al guardar")
+        except Exception as ex:
+            print(f"Ha ocurrido un error al cargar ventas: {ex}")

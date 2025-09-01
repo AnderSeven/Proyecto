@@ -67,9 +67,9 @@ while a == False:
                         opcion = int(input("Ingrese una opcion: "))
                         match opcion:
                             case 1:
-                                pass
+                                registro_cli.registrar_clientes()
                             case 2:
-                                pass
+                                registro_cli.mostrar_clientes()
                             case 3:
                                 s = True
                             case _:
@@ -84,7 +84,7 @@ while a == False:
                         opcion = int(input("Ingrese una opcion: "))
                         match opcion:
                             case 1:
-                                pass
+                                registro_prov.registrar_proveedores()
                             case 2:
                                 pass
                             case 3:

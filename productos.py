@@ -11,12 +11,13 @@ class Producto():
 class registro_productos():
     def __init__(self):
         self.diccionario_productos = {}
+        self.cargar_productos()
 
     def registrar_productos(self, registro_categorias):
         s = False
         while s == False:
             try:
-                cantidad = int(input("Ingrese la cantidad de productos que desasea registrar: "))
+                cantidad = int(input("Ingrese la cantidad de productos que desea registrar: "))
                 if cantidad > 0:
                     s = True
                 else:
@@ -77,3 +78,32 @@ class registro_productos():
             nuevo_producto = Producto(id_producto, nombre, precio, id_categoria, 0, 0, stock)
             self.diccionario_productos[id_producto] = nuevo_producto
             print("Producto registrado en el sistema")
+        self.guardar_productos()
+        print("Datos de productos guardados en el archivo")
+
+    def guardar_productos(self):
+        try:
+            with open("productos.txt", "w") as archivo:
+                for producto in self.diccionario_productos.values():
+                    linea = f"{producto.id_producto}:{producto._nombre}:{producto._precio}:{producto.id_categoria}:{producto._total_compras}:{producto._total_ventas}:{producto._stock}\n"
+                    archivo.write(linea)
+        except Exception as ex:
+            print(f"Ha ocurrido un error al guardar productos: {ex}")
+
+    def cargar_productos(self):
+        try:
+            with open("productos.txt", "r") as archivo:
+                for linea in archivo.readlines():
+                    if linea.strip():
+                        (id_str, nombre, precio_str, id_cat_str, 
+                         compras_str, ventas_str, stock_str) = linea.strip().split(":")
+                        id_producto = int(id_str)
+                        precio = float(precio_str)
+                        id_categoria = int(id_cat_str)
+                        nuevo_producto = Producto(id_producto, nombre, precio, id_categoria, int(compras_str), int(ventas_str), int(stock_str))
+                        self.diccionario_productos[id_producto] = nuevo_producto
+            print("Productos cargados desde productos.txt")
+        except FileNotFoundError:
+            print("No se encontro el archivo productos.txt, se creara uno nuevo al guardar")
+        except Exception as ex:
+            print(f"Ha ocurrido un error al cargar productos: {ex}")

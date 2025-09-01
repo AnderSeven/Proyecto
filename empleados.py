@@ -11,12 +11,13 @@ class Empleado():
 class registro_empleados():
     def __init__(self):
         self.diccionario_empleados = {}
+        self.cargar_empleados()
 
     def registrar_empleados(self):
         s = False
         while s == False:
             try:
-                cantidad = int(input("Ingrese la cantidad de empleados que desasea registrar: "))
+                cantidad = int(input("Ingrese la cantidad de empleados que desea registrar: "))
                 if cantidad > 0:
                     s = True
                 else:
@@ -47,3 +48,32 @@ class registro_empleados():
                 nuevo_empleado = Empleado(id_empleado, nombre, direccion, telefono, correo, puesto)
             self.diccionario_empleados[id_empleado] = nuevo_empleado
             print("Empleado registrado en el sistema")
+        self.guardar_empleados()
+        print("Datos de empleados guardados en el archivo")
+
+    def guardar_empleados(self):
+        try:
+            with open("empleados.txt", "w") as archivo:
+                for empleado in self.diccionario_empleados.values():
+                    linea = f"{empleado.id_empleado}:{empleado._nombre}:{empleado._direccion}:{empleado._telefono}:{empleado._correo}:{empleado._puesto}\n"
+                    archivo.write(linea)
+        except Exception as ex:
+            print(f"Ha ocurrido un error al guardar empleados: {ex}")
+
+    def cargar_empleados(self):
+        try:
+            with open("empleados.txt", "r") as archivo:
+                for linea in archivo.readlines():
+                    if linea.strip():
+                        id_str, nombre, direccion, telefono, correo, puesto = linea.strip().split(":")
+                        id_empleado = int(id_str)
+                        if puesto == "Admin":
+                            nuevo_empleado = Admin(id_empleado, nombre, direccion, telefono, correo)
+                        else:
+                            nuevo_empleado = Empleado(id_empleado, nombre, direccion, telefono, correo, puesto)
+                        self.diccionario_empleados[id_empleado] = nuevo_empleado
+            print("Empleados cargados desde empleados.txt")
+        except FileNotFoundError:
+            print("No se encontro el archivo empleados.txt, se creara uno nuevo al guardar")
+        except Exception as ex:
+            print(f"Ha ocurrido un error al cargar empleados: {ex}")
