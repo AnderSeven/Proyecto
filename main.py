@@ -35,7 +35,7 @@ while a == False:
                             case 1:
                                 registro_cat.registrar_categorias()
                             case 2:
-                                pass
+                                registro_cat.mostrar_categorias()
                             case 3:
                                 s = True
                             case _:
@@ -50,7 +50,7 @@ while a == False:
                         opcion = int(input("Ingrese una opcion: "))
                         match opcion:
                             case 1:
-                                pass
+                                registro_prod.registrar_productos(registro_cat)
                             case 2:
                                 pass
                             case 3:
@@ -101,7 +101,7 @@ while a == False:
                         opcion = int(input("Ingrese una opcion: "))
                         match opcion:
                             case 1:
-                                pass
+                                registro_emp.registrar_empleados()
                             case 2:
                                 pass
                             case 3:

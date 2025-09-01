@@ -31,11 +31,28 @@ class registro_ventas():
                 print("Error, el empleado no existe")
         s = False
         while s == False:
-            nit = int(input("Ingrese el nit del cliente: "))
-            if nit in registro_clientes.diccionario_clientes:
+            nit2 = input("Ingrese el nit del cliente (o 'cf' para Consumidor Final): ").strip().lower()
+            if nit2 == "cf":
+                nit = "C/F"
                 s = True
             else:
-                print("Error, el cliente no existe")
+                try:
+                    nit = int(nit2)
+                    if nit in registro_clientes.diccionario_clientes:
+                        s = True
+                    else:
+                        print("Cliente no encontrado.")
+                        registrar_nuevo = input("Desea registrarlo ahora? (s/n): ").strip().lower()
+                        if registrar_nuevo == 's':
+                            nombre = input("Ingrese el nombre del cliente: ").strip()
+                            direccion = input("Ingrese la direccion del cliente: ").strip()
+                            telefono = input("Ingrese el telefono del cliente: ").strip()
+                            correo = input("Ingrese el correo del cliente: ").strip()
+                            registro_clientes.registrar_un_solo_cliente(nit, nombre, direccion, telefono, correo)
+                            s = True
+                except Exception as ex:
+                    print(f"Ha ocurrido un error: {ex}")
+
         total = 0.0
         print("---Ingrese los productos de la venta---")
         s = False
