@@ -85,7 +85,7 @@ class registro_productos():
         try:
             with open("productos.txt", "w") as archivo:
                 for producto in self.diccionario_productos.values():
-                    linea = f"{producto.id_producto}:{producto._nombre}:{producto._precio}:{producto.id_categoria}:{producto._total_compras}:{producto._total_ventas}:{producto._stock}\n"
+                    linea = f"{producto.id_producto}:{producto._nombre}:{producto._precio}:{producto.id_categoria}:{producto._stock}\n"
                     archivo.write(linea)
         except Exception as ex:
             print(f"Ha ocurrido un error al guardar productos: {ex}")
