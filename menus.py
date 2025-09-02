@@ -1,13 +1,13 @@
 class Menus():
     def menu_principal(self):
         print("\n----Menu----")
-        print("1. Registrar categorias")
-        print("2. Registrar productos")
-        print("3. Registrar clientes")
-        print("4. Registrar proveedores")
-        print("5. Registrar empleados")
-        print("6. Registrar compras")
-        print("7. Registrar ventas")
+        print("1. Categorias")
+        print("2. Productos")
+        print("3. Clientes")
+        print("4. Proveedores")
+        print("5. Empleados")
+        print("6. Compras")
+        print("7. Ventas")
         print("8. Admin")
         print("9. Salir")
 

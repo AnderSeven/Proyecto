@@ -6,7 +6,6 @@ from proveedores import registro_proveedores
 from empleados import registro_empleados
 from compras import registro_compras
 from ventas import registro_ventas
-from admin import Admin
 
 registro_cat = registro_categorias()
 registro_prod = registro_productos()

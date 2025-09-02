@@ -1,4 +1,3 @@
-from admin import Admin
 class Empleado():
     def __init__(self, id_empleado, nombre, direccion, telefono, correo, puesto):
         self.id_empleado = id_empleado
@@ -77,3 +76,7 @@ class registro_empleados():
             print("No se encontro el archivo empleados.txt, se creara uno nuevo al guardar")
         except Exception as ex:
             print(f"Ha ocurrido un error al cargar empleados: {ex}")
+
+class Admin(Empleado):
+    def __init__(self, id_empleado, nombre, direccion, telefono, correo):
+        Empleado.__init__(self, id_empleado, nombre, direccion, telefono, correo, puesto = "Admin")
