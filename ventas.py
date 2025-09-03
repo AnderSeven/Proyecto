@@ -157,3 +157,39 @@ class registro_ventas():
                     print(f"ID Venta: {venta.id_venta} | Fecha: {venta._fecha} | Empleado ID: {venta.id_empleado} | Cliente NIT: {venta.nit} | Total: Q{venta._total:.2f}")
             except Exception as ex:
                 print(f"Ha ocurrido un error: {ex}")
+
+    def modificar_venta(self, registro_productos, registro_dv):
+        print("\n---Anular Venta---")
+        if not self.diccionario_ventas:
+            print("No hay ventas para anular.")
+        else:
+            s = False
+            while s == False:
+                try:
+                    id_venta = int(input("Ingrese el ID de la venta que desea anular: "))
+                    if id_venta in self.diccionario_ventas:
+                        s = True
+                    else:
+                        print("Error, la venta no existe, intente de nuevo")
+                except Exception as ex:
+                    print(f"Ha ocurrido un error: {ex}")
+            
+            venta_a_anular = self.diccionario_ventas[id_venta]
+            
+            if venta_a_anular._total > 0:
+                print(f"Anulando Venta #{id_venta}. Total original: Q{venta_a_anular._total:.2f}")
+                
+                for detalle in registro_dv.diccionario_detalle_ventas.values():
+                    if detalle.id_venta == id_venta:
+                        producto_obj = registro_productos.diccionario_productos.get(detalle.id_producto)
+                        if producto_obj:
+                            producto_obj._stock += detalle._cantidad
+                            print(f"Devueltas {detalle._cantidad} unidades al stock de '{producto_obj._nombre}'")
+
+                venta_a_anular._total = 0.0
+                
+                self.guardar_ventas()
+                registro_productos.guardar_productos()
+                print("Venta anulada con exito. El stock ha sido restaurado.")
+            else:
+                print("Esta venta ya ha sido anulada.")

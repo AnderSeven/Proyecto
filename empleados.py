@@ -144,6 +144,51 @@ class registro_empleados():
             except Exception as ex:
                 print(f"Ha ocurrido un error: {ex}")
 
+    def modificar_empleado(self):
+        print("\n---Modificar Empleado---")
+        if not self.diccionario_empleados:
+            print("No hay empleados para modificar.")
+        else:
+            s = False
+            while s == False:
+                try:
+                    id_emp = int(input("Ingrese el ID del empleado que desea modificar: "))
+                    if id_emp in self.diccionario_empleados:
+                        s = True
+                    else:
+                        print("Error, el empleado no existe, intente de nuevo")
+                except Exception as ex:
+                    print(f"Ha ocurrido un error: {ex}")
+            
+            empleado_a_modificar = self.diccionario_empleados[id_emp]
+            print(f"Datos actuales -> Nombre: {empleado_a_modificar._nombre}, Puesto: {empleado_a_modificar._puesto}")
+            
+            print("Que desea modificar?")
+            print("1. Nombre")
+            print("2. Direccion")
+            print("3. Telefono")
+            print("4. Correo")
+            print("5. Puesto")
+            opcion = input("Elija una opcion: ")
+
+            match opcion:
+                case "1":
+                    empleado_a_modificar._nombre = input("Ingrese el nuevo nombre: ").strip()
+                case "2":
+                    empleado_a_modificar._direccion = input("Ingrese la nueva direccion: ").strip()
+                case "3":
+                    empleado_a_modificar._telefono = input("Ingrese el nuevo telefono: ").strip()
+                case "4":
+                    empleado_a_modificar._correo = input("Ingrese el nuevo correo: ").strip()
+                case "5":
+                    empleado_a_modificar._puesto = input("Ingrese el nuevo puesto: ").strip().capitalize()
+                case _:
+                    print("Opcion no valida.")
+            
+            if opcion in ["1", "2", "3", "4", "5"]:
+                self.guardar_empleados()
+                print("Empleado modificado con exito y cambios guardados.")
+
 class Admin(Empleado):
     def __init__(self, id_empleado, nombre, direccion, telefono, correo):
         Empleado.__init__(self, id_empleado, nombre, direccion, telefono, correo, puesto = "Admin")

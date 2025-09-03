@@ -114,3 +114,51 @@ class registro_clientes():
                     print(f"NIT: {cliente.nit} | Nombre: {cliente._nombre} | Direccion: {cliente._direccion} | Telefono: {cliente._telefono} | Correo: {cliente._correo}")
             except Exception as ex:
                 print(f"Ha ocurrido un error: {ex}")
+
+    def modificar_cliente(self):
+        print("\n---Modificar Cliente---")
+        if not self.diccionario_clientes:
+            print("No hay clientes para modificar.")
+        else:
+            s = False
+            while s == False:
+                try:
+                    nit_cliente = int(input("Ingrese el NIT del cliente que desea modificar: "))
+                    if nit_cliente in self.diccionario_clientes:
+                        s = True
+                    else:
+                        print("Error, el cliente no existe, intente de nuevo")
+                except Exception as ex:
+                    print(f"Ha ocurrido un error: {ex}")
+            
+            cliente_a_modificar = self.diccionario_clientes[nit_cliente]
+            print(f"Datos actuales -> Nombre: {cliente_a_modificar._nombre}, Direccion: {cliente_a_modificar._direccion}")
+            
+            print("Que desea modificar?")
+            print("1. Nombre")
+            print("2. Direccion")
+            print("3. Telefono")
+            print("4. Correo")
+            opcion = input("Elija una opcion: ")
+
+            if opcion == "1":
+                nuevo_nombre = input("Ingrese el nuevo nombre: ").strip()
+                cliente_a_modificar._nombre = nuevo_nombre
+                print("Nombre del cliente modificado con exito.")
+            elif opcion == "2":
+                nueva_direccion = input("Ingrese la nueva direccion: ").strip()
+                cliente_a_modificar._direccion = nueva_direccion
+                print("Direccion del cliente modificada con exito.")
+            elif opcion == "3":
+                nuevo_telefono = input("Ingrese el nuevo telefono: ").strip()
+                cliente_a_modificar._telefono = nuevo_telefono
+                print("Telefono del cliente modificado con exito.")
+            elif opcion == "4":
+                nuevo_correo = input("Ingrese el nuevo correo: ").strip()
+                cliente_a_modificar._correo = nuevo_correo
+                print("Correo del cliente modificado con exito.")
+            else:
+                print("Opcion no valida.")
+
+            self.guardar_clientes()
+            print("Cambios guardados en el archivo.")

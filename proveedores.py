@@ -109,3 +109,48 @@ class registro_proveedores():
                     print(f"NIT: {proveedor.nit} | Nombre: {proveedor._nombre} | Empresa: {proveedor._empresa} | Telefono: {proveedor._telefono}")
             except Exception as ex:
                 print(f"Ha ocurrido un error: {ex}")
+
+    def modificar_proveedor(self):
+        print("\n---Modificar Proveedor---")
+        if not self.diccionario_proveedores:
+            print("No hay proveedores para modificar.")
+        else:
+            s = False
+            while s == False:
+                try:
+                    nit_prov = int(input("Ingrese el NIT del proveedor que desea modificar: "))
+                    if nit_prov in self.diccionario_proveedores:
+                        s = True
+                    else:
+                        print("Error, el proveedor no existe, intente de nuevo")
+                except Exception as ex:
+                    print(f"Ha ocurrido un error: {ex}")
+            
+            proveedor_a_modificar = self.diccionario_proveedores[nit_prov]
+            print(f"Datos actuales -> Nombre: {proveedor_a_modificar._nombre}, Empresa: {proveedor_a_modificar._empresa}")
+            
+            print("Que desea modificar?")
+            print("1. Nombre")
+            print("2. Direccion")
+            print("3. Telefono")
+            print("4. Correo")
+            print("5. Empresa")
+            opcion = input("Elija una opcion: ")
+
+            match opcion:
+                case "1":
+                    proveedor_a_modificar._nombre = input("Ingrese el nuevo nombre: ").strip()
+                case "2":
+                    proveedor_a_modificar._direccion = input("Ingrese la nueva direccion: ").strip()
+                case "3":
+                    proveedor_a_modificar._telefono = input("Ingrese el nuevo telefono: ").strip()
+                case "4":
+                    proveedor_a_modificar._correo = input("Ingrese el nuevo correo: ").strip()
+                case "5":
+                    proveedor_a_modificar._empresa = input("Ingrese el nuevo nombre de empresa: ").strip()
+                case _:
+                    print("Opcion no valida.")
+            
+            if opcion in ["1", "2", "3", "4", "5"]:
+                self.guardar_proveedores()
+                print("Proveedor modificado con exito y cambios guardados.")

@@ -163,17 +163,17 @@ while a == False:
                                 case 2:
                                     registro_prod.modificar_producto()
                                 case 3:
-                                    pass
+                                    registro_cli.modificar_cliente()
                                 case 4:
-                                    pass
+                                    registro_emp.modificar_empleado()
                                 case 5:
                                     registro_comp.registrar_compras(registro_emp, registro_prov, registro_prod)
                                 case 6:
-                                    pass
+                                    registro_ven.modificar_venta(registro_prod, registro_dv)
                                 case 7:
                                     pass
                                 case 8:
-                                    pass
+                                    registro_prov.modificar_proveedor()
                                 case 9:
                                     s = True
                                 case _:
