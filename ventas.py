@@ -97,7 +97,6 @@ class registro_ventas():
                 for linea in archivo.readlines():
                     if linea.strip():
                         (id_venta_str, fecha, id_empleado_str, nit_val, total_str) = linea.strip().split(":")
-                        # El nit puede ser 'C/F' o un numero
                         nit = int(nit_val) if nit_val.isdigit() else nit_val
                         self.diccionario_ventas[int(id_venta_str)] = Venta(int(id_venta_str), fecha, int(id_empleado_str), nit, float(total_str))
             print("Ventas cargadas desde ventas.txt")

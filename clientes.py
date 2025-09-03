@@ -6,10 +6,30 @@ class Cliente():
         self._telefono = telefono
         self._correo = correo
 
+class quick_sorts_clientes():
+    def quick_sort_nit(self, lista):
+        if len(lista) <= 1:
+            return lista
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if x.nit < pivote.nit]
+        iguales = [x for x in lista if x.nit == pivote.nit]
+        mayores = [x for x in lista[1:] if x.nit > pivote.nit]
+        return self.quick_sort_nit(menores) + iguales + self.quick_sort_nit(mayores)
+
+    def quick_sort_nombre(self, lista):
+        if len(lista) <= 1:
+            return lista
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if x._nombre < pivote._nombre]
+        iguales = [x for x in lista if x._nombre == pivote._nombre]
+        mayores = [x for x in lista[1:] if x._nombre > pivote._nombre]
+        return self.quick_sort_nombre(menores) + iguales + self.quick_sort_nombre(mayores)
+
 class registro_clientes():
     def __init__(self):
         self.diccionario_clientes = {}
         self.cargar_clientes()
+        self.sorter = quick_sorts_clientes()
 
     def registrar_clientes(self):
         s = False
@@ -71,24 +91,6 @@ class registro_clientes():
         except Exception as ex:
             print(f"Ha ocurrido un error al cargar clientes: {ex}")
 
-    def _quick_sort_nit(self, lista):
-        if len(lista) <= 1:
-            return lista
-        pivote = lista[0]
-        menores = [x for x in lista[1:] if x.nit < pivote.nit]
-        iguales = [x for x in lista if x.nit == pivote.nit]
-        mayores = [x for x in lista[1:] if x.nit > pivote.nit]
-        return self._quick_sort_nit(menores) + iguales + self._quick_sort_nit(mayores)
-
-    def _quick_sort_nombre(self, lista):
-        if len(lista) <= 1:
-            return lista
-        pivote = lista[0]
-        menores = [x for x in lista[1:] if x._nombre < pivote._nombre]
-        iguales = [x for x in lista if x._nombre == pivote._nombre]
-        mayores = [x for x in lista[1:] if x._nombre > pivote._nombre]
-        return self._quick_sort_nombre(menores) + iguales + self._quick_sort_nombre(mayores)
-
     def mostrar_clientes(self):
         print("\n---Clientes---")
         if not self.diccionario_clientes:
@@ -102,9 +104,9 @@ class registro_clientes():
                 opcion = int(input("Elija una opcion: "))
                 match opcion:
                     case 1:
-                        lista_ordenada = self._quick_sort_nit(lista_clientes)
+                        lista_ordenada = self.sorter.quick_sort_nit(lista_clientes)
                     case 2:
-                        lista_ordenada = self._quick_sort_nombre(lista_clientes)
+                        lista_ordenada = self.sorter.quick_sort_nombre(lista_clientes)
                     case _:
                         print("Opcion invalida, se mostrara sin ordenar")
                         lista_ordenada = lista_clientes
