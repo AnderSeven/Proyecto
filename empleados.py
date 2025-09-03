@@ -58,7 +58,7 @@ class registro_empleados():
             direccion = input("Ingrese la direccion del empleado: ").strip()
             telefono = input("Ingrese el telefono del empleado: ").strip()
             correo = input("Ingrese el correo del empleado: ").strip()
-            puesto = input("Ingrese el puesto del empleado: ").capitalize().strip()
+            puesto = input("Ingrese el puesto del empleado: ").strip().capitalize()
             if puesto == "Admin":
                 nuevo_empleado = Admin(id_empleado, nombre, direccion, telefono, correo)
             else:

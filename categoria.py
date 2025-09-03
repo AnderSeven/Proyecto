@@ -82,6 +82,30 @@ class registro_categorias():
             except Exception as ex:
                 print(f"Ha ocurrido un error: {ex}")
 
+    def modificar_categoria(self):
+        print("\n---Modificar Categoria---")
+        if not self.diccionario_categorias:
+            print("No hay categorias para modificar.")
+        else:
+            s = False
+            while s == False:
+                try:
+                    id_cat = int(input("Ingrese el ID de la categoria que desea modificar: "))
+                    if id_cat in self.diccionario_categorias:
+                        s = True
+                    else:
+                        print("Error, la categoria no existe, intente de nuevo")
+                except Exception as ex:
+                    print(f"Ha ocurrido un error: {ex}")
+            
+            categoria_a_modificar = self.diccionario_categorias[id_cat]
+            print(f"Nombre actual: {categoria_a_modificar._nombre}")
+            nuevo_nombre = input("Ingrese el nuevo nombre para la categoria: ").strip().lower()
+            
+            categoria_a_modificar._nombre = nuevo_nombre
+            self.guardar_categorias()
+            print("Categoria modificada con exito.")
+
     def guardar_categorias(self):
         try:
             with open("categorias.txt", "w") as archivo:

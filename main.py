@@ -6,6 +6,7 @@ from proveedores import registro_proveedores
 from empleados import registro_empleados
 from compras import registro_compras
 from ventas import registro_ventas
+from detalle_ventas import registro_detalle_ventas
 
 registro_cat = registro_categorias()
 registro_prod = registro_productos()
@@ -14,6 +15,7 @@ registro_prov = registro_proveedores()
 registro_emp = registro_empleados()
 registro_comp = registro_compras()
 registro_ven = registro_ventas()
+registro_dv = registro_detalle_ventas()
 
 menu = Menus()
 
@@ -136,7 +138,7 @@ while a == False:
                         opcion = int(input("Ingrese una opcion: "))
                         match opcion:
                             case 1:
-                                registro_ven.registrar_ventas(registro_emp, registro_cli, registro_prod)
+                                registro_ven.registrar_ventas(registro_emp, registro_cli, registro_prod, registro_dv)
                             case 2:
                                 registro_ven.mostrar_ventas()
                             case 3:
@@ -155,7 +157,7 @@ while a == False:
                         opcion = int(input("Ingrese una opcion: "))
                         match opcion:
                             case 1:
-                                pass
+                                registro_cat.modificar_categoria()
                             case 2:
                                 pass
                             case 3:

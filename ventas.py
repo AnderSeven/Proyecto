@@ -1,4 +1,5 @@
 from datetime import date
+from detalle_ventas import DetalleVenta
 class Venta():
     def __init__(self, id_venta, fecha, id_empleado, nit, total):
         self.id_venta = id_venta
@@ -30,7 +31,7 @@ class registro_ventas():
         self.cargar_ventas()
         self.sorter = quick_sorts_ventas()
 
-    def registrar_ventas(self, registro_empleados, registro_clientes, registro_productos):
+    def registrar_ventas(self, registro_empleados, registro_clientes, registro_productos, registro_dv):
         s = False
         while s == False:
             try:
@@ -73,6 +74,7 @@ class registro_ventas():
                     print(f"Ha ocurrido un error: {ex}")
 
         total = 0.0
+        id_detalle_actual = registro_dv.obtener_siguiente_id()
         print("---Ingrese los productos de la venta---")
         s = False
         while s == False:
@@ -83,12 +85,20 @@ class registro_ventas():
                 else:
                     if id_producto in registro_productos.diccionario_productos:
                         producto_obj = registro_productos.diccionario_productos[id_producto]
-                        if producto_obj._stock > 0:
-                            producto_obj._stock -= 1
-                            total += producto_obj._precio
-                            print(f"'{producto_obj._nombre}' agregado, quedan: {producto_obj._stock}")
+                        cantidad_a_vender = int(input(f"Ingrese la cantidad de '{producto_obj._nombre}': "))
+                        
+                        if cantidad_a_vender > 0 and cantidad_a_vender <= producto_obj._stock:
+                            producto_obj._stock -= cantidad_a_vender
+                            subtotal = producto_obj._precio * cantidad_a_vender
+                            total += subtotal
+                            
+                            detalle = DetalleVenta(id_detalle_actual, id_venta, cantidad_a_vender, id_producto, subtotal)
+                            registro_dv.diccionario_detalle_ventas[id_detalle_actual] = detalle
+                            id_detalle_actual += 1
+
+                            print(f"'{producto_obj._nombre}' x{cantidad_a_vender} agregado. Subtotal: Q{subtotal:.2f}")
                         else:
-                            print(f"No hay stock disponible de {producto_obj._nombre}")
+                            print(f"Cantidad invalida o no hay suficiente stock. Disponibles: {producto_obj._stock}")
                     else:
                         print("Error, producto no encontrado")
             except Exception as ex:
@@ -97,6 +107,9 @@ class registro_ventas():
         nueva_venta = Venta(id_venta, fecha, id_empleado, nit, total)
         self.diccionario_ventas[id_venta] = nueva_venta
         print(f"Venta #{id_venta} registrada con exito. Total: Q{total:.2f}")
+        
+        registro_productos.guardar_productos()
+        registro_dv.guardar_detalles()
         self.guardar_ventas()
         print("Datos de ventas guardados en el archivo")
 
