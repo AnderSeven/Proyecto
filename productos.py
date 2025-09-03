@@ -92,16 +92,6 @@ class registro_productos():
             s = False
             while s == False:
                 try:
-                    stock = int(input("Ingrese el stock del producto: "))
-                    if stock > 0:
-                        s = True
-                    else:
-                        print("El stock debe de ser mayor a cero")
-                except Exception as ex:
-                    print(f"Ha ocurrido un error: {ex}")
-            s = False
-            while s == False:
-                try:
                     id_categoria = int(input("Ingrese el id de la categoria a la que le pertenece: "))
                     if id_categoria in registro_categorias.diccionario_categorias:
                         s = True
@@ -109,7 +99,7 @@ class registro_productos():
                         print("Error, la categoria no existe, intenta de nuevo")
                 except Exception as ex:
                     print(f"Ha ocurrido un error: {ex}")
-            nuevo_producto = Producto(id_producto, nombre, precio, id_categoria, 0, 0, stock)
+            nuevo_producto = Producto(id_producto, nombre, precio, id_categoria, 0, 0, 0)
             self.diccionario_productos[id_producto] = nuevo_producto
             print("Producto registrado en el sistema")
         self.guardar_productos()

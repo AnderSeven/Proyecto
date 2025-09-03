@@ -1,3 +1,4 @@
+from datetime import date
 class Compra():
     def __init__(self, id_compra, fecha_ingreso, id_empleado, nit, total):
         self.id_compra = id_compra
@@ -24,7 +25,95 @@ class quick_sorts_compras():
 class registro_compras():
     def __init__(self):
         self.diccionario_compras = {}
+        self.cargar_compras()
         self.sorter = quick_sorts_compras()
+
+    def obtener_siguiente_id(self):
+        if not self.diccionario_compras:
+            return 1
+        return max(self.diccionario_compras.keys()) + 1
+
+    def registrar_compras(self, registro_empleados, registro_proveedores, registro_productos):
+        id_compra = self.obtener_siguiente_id()
+        print(f"Iniciando nueva compra con ID: {id_compra}")
+
+        s = False
+        while s == False:
+            try:
+                id_empleado = int(input("Ingrese su ID de empleado (admin): "))
+                if id_empleado in registro_empleados.diccionario_empleados:
+                    s = True
+                else:
+                    print("Error, el empleado no existe")
+            except Exception as ex:
+                print(f"Ha ocurrido un error: {ex}")
+        
+        s = False
+        while s == False:
+            try:
+                nit_proveedor = int(input("Ingrese el NIT del proveedor: "))
+                if nit_proveedor in registro_proveedores.diccionario_proveedores:
+                    s = True
+                else:
+                    print("Error, el proveedor no existe")
+            except Exception as ex:
+                print(f"Ha ocurrido un error: {ex}")
+
+        total_compra = 0.0
+        print("--- Ingrese los productos de la compra ---")
+        while True:
+            try:
+                id_producto = int(input("Ingrese el ID del producto (o 0 para finalizar): "))
+                if id_producto == 0:
+                    break
+                
+                if id_producto in registro_productos.diccionario_productos:
+                    producto_obj = registro_productos.diccionario_productos[id_producto]
+                    cantidad_comprada = int(input(f"Ingrese la cantidad comprada de '{producto_obj._nombre}': "))
+                    costo_unitario = float(input(f"Ingrese el costo por unidad de '{producto_obj._nombre}': "))
+
+                    if cantidad_comprada > 0 and costo_unitario >= 0:
+                        producto_obj._stock += cantidad_comprada
+                        subtotal = costo_unitario * cantidad_comprada
+                        total_compra += subtotal
+                        print(f"'{producto_obj._nombre}' x{cantidad_comprada} agregado a la compra.")
+                    else:
+                        print("La cantidad y el costo deben ser positivos.")
+                else:
+                    print("Error, producto no encontrado")
+            except Exception as ex:
+                print(f"Ha ocurrido un error: {ex}")
+
+        fecha_actual = date.today().isoformat()
+        nueva_compra = Compra(id_compra, fecha_actual, id_empleado, nit_proveedor, total_compra)
+        self.diccionario_compras[id_compra] = nueva_compra
+        print(f"\nCompra #{id_compra} registrada con exito. Total: Q{total_compra:.2f}")
+
+        registro_productos.guardar_productos()
+        self.guardar_compras()
+        print("Datos de compras y productos guardados en el archivo")
+
+    def guardar_compras(self):
+        try:
+            with open("compras.txt", "w") as archivo:
+                for compra in self.diccionario_compras.values():
+                    linea = f"{compra.id_compra}:{compra._fecha_ingreso}:{compra.id_empleado}:{compra.nit}:{compra._total}\n"
+                    archivo.write(linea)
+        except Exception as ex:
+            print(f"Ha ocurrido un error al guardar compras: {ex}")
+
+    def cargar_compras(self):
+        try:
+            with open("compras.txt", "r") as archivo:
+                for linea in archivo.readlines():
+                    if linea.strip():
+                        (id_compra_str, fecha, id_emp_str, nit_str, total_str) = linea.strip().split(":")
+                        self.diccionario_compras[int(id_compra_str)] = Compra(int(id_compra_str), fecha, int(id_emp_str), int(nit_str), float(total_str))
+            print("Compras cargadas desde compras.txt")
+        except FileNotFoundError:
+            print("No se encontro el archivo compras.txt, se creara uno nuevo al guardar")
+        except Exception as ex:
+            print(f"Ha ocurrido un error al cargar compras: {ex}")
 
     def mostrar_compras(self):
         print("\n---Compras---")

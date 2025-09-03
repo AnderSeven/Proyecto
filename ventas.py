@@ -31,17 +31,14 @@ class registro_ventas():
         self.cargar_ventas()
         self.sorter = quick_sorts_ventas()
 
+    def obtener_siguiente_id(self):
+        if not self.diccionario_ventas:
+            return 1
+        return max(self.diccionario_ventas.keys()) + 1
+
     def registrar_ventas(self, registro_empleados, registro_clientes, registro_productos, registro_dv):
-        s = False
-        while s == False:
-            try:
-                id_venta = int(input("Ingrese el id de la venta: "))
-                if id_venta in self.diccionario_ventas:
-                    print("El id ya este en uso, intente de nuevo")
-                else:
-                    s = True
-            except Exception as ex:
-                print(f"Ha ocurrido un error: {ex}")
+        id_venta = self.obtener_siguiente_id()
+        print(f"Iniciando nueva venta con ID: {id_venta}")
         s = False
         while s == False:
             id_empleado = int(input("Ingrese el id del empleado: "))
