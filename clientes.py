@@ -42,25 +42,25 @@ class registro_clientes():
                     print("La cantidad debe de ser un numero entero mayor a cero")
             except Exception as ex:
                 print(f"Ha ocurrido un error: {ex}")
-
-            for i in range(cantidad):
-                s = False
-                print(f"Cliente: #{i+1}")
-                while s == False:
-                    try:
-                        nit = int(input("Ingrese el nit del cliente: "))
-                        if nit in self.diccionario_clientes:
-                            print("El nit ya este en uso, intente de nuevo")
-                        else:
-                            s = True
-                    except Exception as ex:
-                        print(f"Ha ocurrido un error: {ex}")
-                nombre = input("Ingrese el nombre del cliente: ").strip()
-                direccion = input("Ingrese la direccion del cliente: ").strip()
-                telefono = input("Ingrese el telefono del cliente: ").strip()
-                correo = input("Ingrese el correo del cliente: ").strip()
-                self.diccionario_clientes[nit] = Cliente(nit, nombre, direccion, telefono, correo)
-                print(f"Cliente '{nombre}' registrado en el sistema")
+        
+        for i in range(cantidad):
+            s = False
+            print(f"Cliente: #{i+1}")
+            while s == False:
+                try:
+                    nit = int(input("Ingrese el nit del cliente: "))
+                    if nit in self.diccionario_clientes:
+                        print("El nit ya este en uso, intente de nuevo")
+                    else:
+                        s = True
+                except Exception as ex:
+                    print(f"Ha ocurrido un error: {ex}")
+            nombre = input("Ingrese el nombre del cliente: ").strip()
+            direccion = input("Ingrese la direccion del cliente: ").strip()
+            telefono = input("Ingrese el telefono del cliente: ").strip()
+            correo = input("Ingrese el correo del cliente: ").strip()
+            self.diccionario_clientes[nit] = Cliente(nit, nombre, direccion, telefono, correo)
+            print(f"Cliente '{nombre}' registrado en el sistema")
         self.guardar_clientes()
         print("Datos de clientes guardados en el archivo")
 

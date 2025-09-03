@@ -125,12 +125,8 @@ while a == False:
                         opcion = int(input("Ingrese una opcion: "))
                         match opcion:
                             case 1:
-                                registro_comp.registrar_compras(registro_emp, registro_prov, registro_prod)
-                            case 2:
                                 registro_comp.mostrar_compras()
-                            case 3:
-                                pass
-                            case 4:
+                            case 2:
                                 s = True
                             case _:
                                 print("Opcion invalida")
@@ -148,8 +144,6 @@ while a == False:
                             case 2:
                                 registro_ven.mostrar_ventas()
                             case 3:
-                                pass
-                            case 4:
                                 s = True
                             case _:
                                 print("Opcion invalida")
@@ -167,18 +161,20 @@ while a == False:
                                 case 1:
                                     registro_cat.modificar_categoria()
                                 case 2:
-                                    pass
+                                    registro_prod.modificar_producto()
                                 case 3:
                                     pass
                                 case 4:
                                     pass
                                 case 5:
-                                    pass
+                                    registro_comp.registrar_compras(registro_emp, registro_prov, registro_prod)
                                 case 6:
                                     pass
                                 case 7:
                                     pass
                                 case 8:
+                                    pass
+                                case 9:
                                     s = True
                                 case _:
                                     print("Opcion invalida")

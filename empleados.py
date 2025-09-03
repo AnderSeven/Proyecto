@@ -41,6 +41,7 @@ class registro_empleados():
                     print("La cantidad debe de ser un numero entero mayor a cero")
             except Exception as ex:
                 print(f"Ha ocurrido un error: {ex}")
+        
         for i in range(cantidad):
             s = False
             print(f"\nEmpleado: #{i+1}")

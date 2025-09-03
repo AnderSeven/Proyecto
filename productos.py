@@ -161,3 +161,50 @@ class registro_productos():
                     print(f"ID: {producto.id_producto} | Nombre: {producto._nombre} | Precio: Q{producto._precio:.2f} | Stock: {producto._stock} | Categoria ID: {producto.id_categoria}")
             except Exception as ex:
                 print(f"Ha ocurrido un error: {ex}")
+
+    def modificar_producto(self):
+        print("\n---Modificar Producto---")
+        if not self.diccionario_productos:
+            print("No hay productos para modificar.")
+        else:
+            s = False
+            while s == False:
+                try:
+                    id_prod = int(input("Ingrese el ID del producto que desea modificar: "))
+                    if id_prod in self.diccionario_productos:
+                        s = True
+                    else:
+                        print("Error, el producto no existe, intente de nuevo")
+                except Exception as ex:
+                    print(f"Ha ocurrido un error: {ex}")
+            
+            producto_a_modificar = self.diccionario_productos[id_prod]
+            print(f"Datos actuales -> Nombre: {producto_a_modificar._nombre}, Precio: Q{producto_a_modificar._precio:.2f}")
+            
+            print("Que desea modificar?")
+            print("1. Nombre")
+            print("2. Precio")
+            opcion = input("Elija una opcion: ")
+
+            if opcion == "1":
+                nombre_duplicado = False
+                nuevo_nombre = input("Ingrese el nuevo nombre: ").strip().lower()
+                for producto_existente in self.diccionario_productos.values():
+                    if producto_existente._nombre.lower() == nuevo_nombre and producto_existente.id_producto != id_prod:
+                        print(f"Error, ya existe otro producto con el nombre {nuevo_nombre}")
+                        nombre_duplicado = True
+                        break
+                
+                if not nombre_duplicado:
+                    producto_a_modificar._nombre = nuevo_nombre
+                    print("Nombre del producto modificado con exito.")
+
+            elif opcion == "2":
+                nuevo_precio = float(input("Ingrese el nuevo precio: "))
+                producto_a_modificar._precio = nuevo_precio
+                print("Precio del producto modificado con exito.")
+            else:
+                print("Opcion no valida.")
+
+            self.guardar_productos()
+            print("Cambios guardados en el archivo.")

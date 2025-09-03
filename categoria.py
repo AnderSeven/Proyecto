@@ -32,7 +32,7 @@ class registro_categorias():
         s = False
         while s == False:
             try:
-                cantidad = int(input("Ingrese la cantidad de categorias que desasea registrar: "))
+                cantidad = int(input("Ingrese la cantidad de categorias que desea registrar: "))
                 if  cantidad <= 0:
                     print("La cantidad debe de ser un numero entero mayor a cero")
                 else:

@@ -44,17 +44,14 @@ class Menus():
 
     def menu_compras(self):
         print("\n---Compras---")
-        print("1. Registrar compras")
-        print("2. Mostrar compras")
-        print("3. Registrar detalle de compra")
-        print("4. Regresar")
+        print("1. Mostrar compras")
+        print("2. Regresar")
 
     def menu_ventas(self):
         print("\n---Ventas---")
         print("1. Registrar ventas")
         print("2. Mostrar ventas")
-        print("3. Registrar detalle de venta")
-        print("4. Regresar")
+        print("3. Regresar")
 
     def menu_admin(self):
         print("\n---Admin---")
@@ -62,7 +59,8 @@ class Menus():
         print("2. Modificar datos producto")
         print("3. Modificar datos cliente")
         print("4. Modificar datos empleado")
-        print("5. Modificar datos venta")
-        print("6. Modificar datos compra")
-        print("7. Modificar datos proveedor")
-        print("8. Regresar al menu principal")
+        print("5. Registrar nueva compra a proveedor")
+        print("6. Modificar datos venta")
+        print("7. Modificar datos compra")
+        print("8. Modificar datos proveedor")
+        print("9. Regresar al menu principal")
