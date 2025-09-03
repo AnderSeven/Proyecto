@@ -7,6 +7,7 @@ from empleados import registro_empleados
 from compras import registro_compras
 from ventas import registro_ventas
 from detalle_ventas import registro_detalle_ventas
+from detalle_compras import registro_detalle_compra
 
 registro_cat = registro_categorias()
 registro_prod = registro_productos()
@@ -14,6 +15,7 @@ registro_cli = registro_clientes()
 registro_prov = registro_proveedores()
 registro_emp = registro_empleados()
 registro_comp = registro_compras()
+registro_dc = registro_detalle_compra()
 registro_ven = registro_ventas()
 registro_dv = registro_detalle_ventas()
 
@@ -167,11 +169,11 @@ while a == False:
                                 case 4:
                                     registro_emp.modificar_empleado()
                                 case 5:
-                                    registro_comp.registrar_compras(registro_emp, registro_prov, registro_prod)
+                                    registro_comp.registrar_compras(registro_emp, registro_prov, registro_prod, registro_dc)
                                 case 6:
                                     registro_ven.modificar_venta(registro_prod, registro_dv)
                                 case 7:
-                                    pass
+                                    registro_comp.modificar_compra(registro_prod, registro_dc)
                                 case 8:
                                     registro_prov.modificar_proveedor()
                                 case 9:

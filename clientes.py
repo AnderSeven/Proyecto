@@ -141,24 +141,18 @@ class registro_clientes():
             print("4. Correo")
             opcion = input("Elija una opcion: ")
 
-            if opcion == "1":
-                nuevo_nombre = input("Ingrese el nuevo nombre: ").strip()
-                cliente_a_modificar._nombre = nuevo_nombre
-                print("Nombre del cliente modificado con exito.")
-            elif opcion == "2":
-                nueva_direccion = input("Ingrese la nueva direccion: ").strip()
-                cliente_a_modificar._direccion = nueva_direccion
-                print("Direccion del cliente modificada con exito.")
-            elif opcion == "3":
-                nuevo_telefono = input("Ingrese el nuevo telefono: ").strip()
-                cliente_a_modificar._telefono = nuevo_telefono
-                print("Telefono del cliente modificado con exito.")
-            elif opcion == "4":
-                nuevo_correo = input("Ingrese el nuevo correo: ").strip()
-                cliente_a_modificar._correo = nuevo_correo
-                print("Correo del cliente modificado con exito.")
-            else:
-                print("Opcion no valida.")
-
-            self.guardar_clientes()
-            print("Cambios guardados en el archivo.")
+            match opcion:
+                case "1":
+                    cliente_a_modificar._nombre = input("Ingrese el nuevo nombre: ").strip()
+                case "2":
+                    cliente_a_modificar._direccion = input("Ingrese la nueva direccion: ").strip()
+                case "3":
+                    cliente_a_modificar._telefono = input("Ingrese el nuevo telefono: ").strip()
+                case "4":
+                    cliente_a_modificar._correo = input("Ingrese el nuevo correo: ").strip()
+                case _:
+                    print("Opcion no valida.")
+            
+            if opcion in ["1", "2", "3", "4"]:
+                self.guardar_clientes()
+                print("Cliente modificado con exito y cambios guardados.")

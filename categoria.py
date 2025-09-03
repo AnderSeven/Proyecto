@@ -39,6 +39,7 @@ class registro_categorias():
                      s = True
             except Exception as ex:
                 print(f"Ha ocurrido un error: {ex}")
+
         for i in range(cantidad):
             s = False
             print(f"Categoria: #{i+1}")
@@ -100,11 +101,18 @@ class registro_categorias():
             
             categoria_a_modificar = self.diccionario_categorias[id_cat]
             print(f"Nombre actual: {categoria_a_modificar._nombre}")
-            nuevo_nombre = input("Ingrese el nuevo nombre para la categoria: ").strip().lower()
+            nuevo_nombre = input("Ingrese el nuevo nombre para la categoria: ").strip().lower()            
+            nombre_duplicado = False
+            for categoria_existente in self.diccionario_categorias.values():
+                if categoria_existente._nombre.lower() == nuevo_nombre and categoria_existente.id_categoria != id_cat:
+                    print(f"Error, ya existe otra categoria con el nombre {nuevo_nombre}")
+                    nombre_duplicado = True
+                    break
             
-            categoria_a_modificar._nombre = nuevo_nombre
-            self.guardar_categorias()
-            print("Categoria modificada con exito.")
+            if not nombre_duplicado:
+                categoria_a_modificar._nombre = nuevo_nombre
+                self.guardar_categorias()
+                print("Categoria modificada con exito.")
 
     def guardar_categorias(self):
         try:

@@ -186,25 +186,22 @@ class registro_productos():
             print("2. Precio")
             opcion = input("Elija una opcion: ")
 
-            if opcion == "1":
-                nombre_duplicado = False
-                nuevo_nombre = input("Ingrese el nuevo nombre: ").strip().lower()
-                for producto_existente in self.diccionario_productos.values():
-                    if producto_existente._nombre.lower() == nuevo_nombre and producto_existente.id_producto != id_prod:
-                        print(f"Error, ya existe otro producto con el nombre {nuevo_nombre}")
-                        nombre_duplicado = True
-                        break
-                
-                if not nombre_duplicado:
-                    producto_a_modificar._nombre = nuevo_nombre
-                    print("Nombre del producto modificado con exito.")
-
-            elif opcion == "2":
-                nuevo_precio = float(input("Ingrese el nuevo precio: "))
-                producto_a_modificar._precio = nuevo_precio
-                print("Precio del producto modificado con exito.")
-            else:
-                print("Opcion no valida.")
-
-            self.guardar_productos()
-            print("Cambios guardados en el archivo.")
+            match opcion:
+                case "1":
+                    nombre_duplicado = False
+                    nuevo_nombre = input("Ingrese el nuevo nombre: ").strip().lower()
+                    for producto_existente in self.diccionario_productos.values():
+                        if producto_existente._nombre.lower() == nuevo_nombre and producto_existente.id_producto != id_prod:
+                            print(f"Error, ya existe otro producto con el nombre {nuevo_nombre}")
+                            nombre_duplicado = True
+                            break
+                    if not nombre_duplicado:
+                        producto_a_modificar._nombre = nuevo_nombre
+                case "2":
+                    producto_a_modificar._precio = float(input("Ingrese el nuevo precio: "))
+                case _:
+                    print("Opcion no valida.")
+            
+            if opcion in ["1", "2"]:
+                self.guardar_productos()
+                print("Producto modificado con exito y cambios guardados.")

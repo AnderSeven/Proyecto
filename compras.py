@@ -1,4 +1,5 @@
 from datetime import date
+from detalle_compras import DetalleCompra
 class Compra():
     def __init__(self, id_compra, fecha_ingreso, id_empleado, nit, total):
         self.id_compra = id_compra
@@ -33,7 +34,7 @@ class registro_compras():
             return 1
         return max(self.diccionario_compras.keys()) + 1
 
-    def registrar_compras(self, registro_empleados, registro_proveedores, registro_productos):
+    def registrar_compras(self, registro_empleados, registro_proveedores, registro_productos, registro_dc):
         id_compra = self.obtener_siguiente_id()
         print(f"Iniciando nueva compra con ID: {id_compra}")
 
@@ -60,6 +61,7 @@ class registro_compras():
                 print(f"Ha ocurrido un error: {ex}")
 
         total_compra = 0.0
+        id_detalle_actual = registro_dc.obtener_siguiente_id()
         print("--- Ingrese los productos de la compra ---")
         while True:
             try:
@@ -76,6 +78,10 @@ class registro_compras():
                         producto_obj._stock += cantidad_comprada
                         subtotal = costo_unitario * cantidad_comprada
                         total_compra += subtotal
+                        
+                        detalle = DetalleCompra(id_detalle_actual, id_compra, cantidad_comprada, id_producto, subtotal)
+                        registro_dc.diccionario_detalle_compra[id_detalle_actual] = detalle
+                        id_detalle_actual += 1
                         print(f"'{producto_obj._nombre}' x{cantidad_comprada} agregado a la compra.")
                     else:
                         print("La cantidad y el costo deben ser positivos.")
@@ -90,6 +96,7 @@ class registro_compras():
         print(f"\nCompra #{id_compra} registrada con exito. Total: Q{total_compra:.2f}")
 
         registro_productos.guardar_productos()
+        registro_dc.guardar_detalles()
         self.guardar_compras()
         print("Datos de compras y productos guardados en el archivo")
 
@@ -138,3 +145,38 @@ class registro_compras():
                     print(f"ID Compra: {compra.id_compra} | Fecha: {compra._fecha_ingreso} | Empleado ID: {compra.id_empleado} | Proveedor NIT: {compra.nit} | Total: Q{compra._total:.2f}")
             except Exception as ex:
                 print(f"Ha ocurrido un error: {ex}")
+
+    def modificar_compra(self, registro_productos, registro_dc):
+        print("\n---Anular Compra---")
+        if not self.diccionario_compras:
+            print("No hay compras para anular.")
+        else:
+            s = False
+            while s == False:
+                try:
+                    id_compra = int(input("Ingrese el ID de la compra que desea anular: "))
+                    if id_compra in self.diccionario_compras:
+                        s = True
+                    else:
+                        print("Error, la compra no existe, intente de nuevo")
+                except Exception as ex:
+                    print(f"Ha ocurrido un error: {ex}")
+            
+            compra_a_anular = self.diccionario_compras[id_compra]
+            
+            if compra_a_anular._total > 0:
+                print(f"Anulando Compra #{id_compra}. Total original: Q{compra_a_anular._total:.2f}")
+                
+                for detalle in registro_dc.diccionario_detalle_compra.values():
+                    if detalle.id_compra == id_compra:
+                        producto_obj = registro_productos.diccionario_productos.get(detalle.id_producto)
+                        if producto_obj and producto_obj._stock >= detalle._cantidad:
+                            producto_obj._stock -= detalle._cantidad
+                            print(f"Restadas {detalle._cantidad} unidades del stock de '{producto_obj._nombre}'")
+                
+                compra_a_anular._total = 0.0
+                self.guardar_compras()
+                registro_productos.guardar_productos()
+                print("Compra anulada con exito. El stock ha sido actualizado.")
+            else:
+                print("Esta compra ya ha sido anulada.")
