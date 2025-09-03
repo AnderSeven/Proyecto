@@ -68,6 +68,30 @@ class registro_empleados():
         self.guardar_empleados()
         print("Datos de empleados guardados en el archivo")
 
+    def registrar_solo_admin(self):
+        print("\n--- Registrar Nuevo Admin ---")
+        s = False
+        while s == False:
+            try:
+                id_empleado = int(input("Ingrese el id del nuevo admin: "))
+                if id_empleado in self.diccionario_empleados:
+                    print("El id ya esta en uso, intente de nuevo")
+                else:
+                    s = True
+            except Exception as ex:
+                print(f"Ha ocurrido un error: {ex}")
+        
+        nombre = input("Ingrese el nombre del admin: ").strip()
+        direccion = input("Ingrese la direccion del admin: ").strip()
+        telefono = input("Ingrese el telefono del admin: ").strip()
+        correo = input("Ingrese el correo del admin: ").strip()
+        
+        nuevo_admin = Admin(id_empleado, nombre, direccion, telefono, correo)
+        self.diccionario_empleados[id_empleado] = nuevo_admin
+        
+        self.guardar_empleados()
+        print("Nuevo admin registrado y guardado con exito")
+
     def guardar_empleados(self):
         try:
             with open("empleados.txt", "w") as archivo:

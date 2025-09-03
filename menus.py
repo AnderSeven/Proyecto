@@ -1,6 +1,7 @@
 class Menus():
     def menu_principal(self):
         print("\n----Menu----")
+        print("0. Opciones de Jefe")
         print("1. Categorias")
         print("2. Productos")
         print("3. Clientes")

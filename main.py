@@ -26,6 +26,12 @@ while a == False:
         menu.menu_principal()
         opcion = int(input("Ingrese una opcion: "))
         match opcion:
+            case 0:
+                clave_jefe = input("Ingrese la clave de jefe: ")
+                if clave_jefe == "jefe123":
+                    registro_emp.registrar_solo_admin()
+                else:
+                    print("Clave incorrecta")
             case 1:
                 s = False
                 while s == False:
@@ -119,7 +125,7 @@ while a == False:
                         opcion = int(input("Ingrese una opcion: "))
                         match opcion:
                             case 1:
-                                pass
+                                registro_comp.registrar_compras(registro_emp, registro_prov, registro_prod)
                             case 2:
                                 registro_comp.mostrar_compras()
                             case 3:
@@ -150,32 +156,36 @@ while a == False:
                     except Exception as ex:
                         print(f"Ha ocurrido un error: {ex}")
             case 8:
-                s = False
-                while s == False:
-                    try:
-                        menu.menu_admin()
-                        opcion = int(input("Ingrese una opcion: "))
-                        match opcion:
-                            case 1:
-                                registro_cat.modificar_categoria()
-                            case 2:
-                                pass
-                            case 3:
-                                pass
-                            case 4:
-                                pass
-                            case 5:
-                                pass
-                            case 6:
-                                pass
-                            case 7:
-                                pass
-                            case 8:
-                                s = True
-                            case _:
-                                print("Opcion invalida")
-                    except Exception as ex:
-                        print(f"Ha ocurrido un error: {ex}")
+                clave_admin = input("Ingrese la clave de administrador: ")
+                if clave_admin == "admin123":
+                    s = False
+                    while s == False:
+                        try:
+                            menu.menu_admin()
+                            opcion = int(input("Ingrese una opcion: "))
+                            match opcion:
+                                case 1:
+                                    registro_cat.modificar_categoria()
+                                case 2:
+                                    pass
+                                case 3:
+                                    pass
+                                case 4:
+                                    pass
+                                case 5:
+                                    pass
+                                case 6:
+                                    pass
+                                case 7:
+                                    pass
+                                case 8:
+                                    s = True
+                                case _:
+                                    print("Opcion invalida")
+                        except Exception as ex:
+                            print(f"Ha ocurrido un error: {ex}")
+                else:
+                    print("Clave incorrecta")
             case 9:
                 print("Gracias por usar el sistema")
                 a = True
