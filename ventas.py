@@ -7,10 +7,28 @@ class Venta():
         self.nit = nit
         self._total = total
 
+class quick_sorts_ventas():
+    def quick_sort_id(self, lista):
+        if len(lista) <= 1: return lista
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if x.id_venta < pivote.id_venta]
+        iguales = [x for x in lista if x.id_venta == pivote.id_venta]
+        mayores = [x for x in lista[1:] if x.id_venta > pivote.id_venta]
+        return self.quick_sort_id(menores) + iguales + self.quick_sort_id(mayores)
+
+    def quick_sort_total(self, lista):
+        if len(lista) <= 1: return lista
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if x._total < pivote._total]
+        iguales = [x for x in lista if x._total == pivote._total]
+        mayores = [x for x in lista[1:] if x._total > pivote._total]
+        return self.quick_sort_total(menores) + iguales + self.quick_sort_total(mayores)
+
 class registro_ventas():
     def __init__(self):
         self.diccionario_ventas = {}
         self.cargar_ventas()
+        self.sorter = quick_sorts_ventas()
 
     def registrar_ventas(self, registro_empleados, registro_clientes, registro_productos):
         s = False
@@ -97,6 +115,7 @@ class registro_ventas():
                 for linea in archivo.readlines():
                     if linea.strip():
                         (id_venta_str, fecha, id_empleado_str, nit_val, total_str) = linea.strip().split(":")
+                        # El nit puede ser 'C/F' o un numero
                         nit = int(nit_val) if nit_val.isdigit() else nit_val
                         self.diccionario_ventas[int(id_venta_str)] = Venta(int(id_venta_str), fecha, int(id_empleado_str), nit, float(total_str))
             print("Ventas cargadas desde ventas.txt")
@@ -104,3 +123,27 @@ class registro_ventas():
             print("No se encontro el archivo ventas.txt, se creara uno nuevo al guardar")
         except Exception as ex:
             print(f"Ha ocurrido un error al cargar ventas: {ex}")
+
+    def mostrar_ventas(self):
+        print("\n---Ventas---")
+        if not self.diccionario_ventas:
+            print("No hay ventas registradas.")
+        else:
+            lista_ventas = list(self.diccionario_ventas.values())
+            print("Como desea ordenar la lista?")
+            print("1. Por ID de Venta (menor a mayor)")
+            print("2. Por Total (menor a mayor)")
+            try:
+                opcion = int(input("Elija una opcion: "))
+                match opcion:
+                    case 1:
+                        lista_ordenada = self.sorter.quick_sort_id(lista_ventas)
+                    case 2:
+                        lista_ordenada = self.sorter.quick_sort_total(lista_ventas)
+                    case _:
+                        print("Opcion invalida, se mostrara sin ordenar")
+                        lista_ordenada = lista_ventas
+                for venta in lista_ordenada:
+                    print(f"ID Venta: {venta.id_venta} | Fecha: {venta._fecha} | Empleado ID: {venta.id_empleado} | Cliente NIT: {venta.nit} | Total: Q{venta._total:.2f}")
+            except Exception as ex:
+                print(f"Ha ocurrido un error: {ex}")

@@ -7,10 +7,28 @@ class Proveedor():
         self._correo = correo
         self._empresa = empresa
 
+class quick_sorts_proveedores():
+    def quick_sort_nit(self, lista):
+        if len(lista) <= 1: return lista
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if x.nit < pivote.nit]
+        iguales = [x for x in lista if x.nit == pivote.nit]
+        mayores = [x for x in lista[1:] if x.nit > pivote.nit]
+        return self.quick_sort_nit(menores) + iguales + self.quick_sort_nit(mayores)
+
+    def quick_sort_nombre(self, lista):
+        if len(lista) <= 1: return lista
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if x._nombre < pivote._nombre]
+        iguales = [x for x in lista if x._nombre == pivote._nombre]
+        mayores = [x for x in lista[1:] if x._nombre > pivote._nombre]
+        return self.quick_sort_nombre(menores) + iguales + self.quick_sort_nombre(mayores)
+
 class registro_proveedores():
     def __init__(self):
         self.diccionario_proveedores = {}
         self.cargar_proveedores()
+        self.sorter = quick_sorts_proveedores()
 
     def registrar_proveedores(self):
         s = False
@@ -67,3 +85,27 @@ class registro_proveedores():
             print("No se encontro el archivo proveedores.txt, se creara uno nuevo al guardar")
         except Exception as ex:
             print(f"Ha ocurrido un error al cargar proveedores: {ex}")
+
+    def mostrar_proveedores(self):
+        print("\n---Proveedores---")
+        if not self.diccionario_proveedores:
+            print("No hay proveedores registrados.")
+        else:
+            lista_proveedores = list(self.diccionario_proveedores.values())
+            print("Como desea ordenar la lista?")
+            print("1. Por NIT (menor a mayor)")
+            print("2. Por Nombre (alfabeticamente)")
+            try:
+                opcion = int(input("Elija una opcion: "))
+                match opcion:
+                    case 1:
+                        lista_ordenada = self.sorter.quick_sort_nit(lista_proveedores)
+                    case 2:
+                        lista_ordenada = self.sorter.quick_sort_nombre(lista_proveedores)
+                    case _:
+                        print("Opcion invalida, se mostrara sin ordenar")
+                        lista_ordenada = lista_proveedores
+                for proveedor in lista_ordenada:
+                    print(f"NIT: {proveedor.nit} | Nombre: {proveedor._nombre} | Empresa: {proveedor._empresa} | Telefono: {proveedor._telefono}")
+            except Exception as ex:
+                print(f"Ha ocurrido un error: {ex}")

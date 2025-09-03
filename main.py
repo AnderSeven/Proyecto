@@ -51,7 +51,7 @@ while a == False:
                             case 1:
                                 registro_prod.registrar_productos(registro_cat)
                             case 2:
-                                pass
+                                registro_prod.mostrar_productos()
                             case 3:
                                 s = True
                             case _:
@@ -85,7 +85,7 @@ while a == False:
                             case 1:
                                 registro_prov.registrar_proveedores()
                             case 2:
-                                pass
+                                registro_prov.mostrar_proveedores()
                             case 3:
                                 s = True
                             case _:
@@ -102,7 +102,7 @@ while a == False:
                             case 1:
                                 registro_emp.registrar_empleados()
                             case 2:
-                                pass
+                                registro_emp.mostrar_empleados()
                             case 3:
                                 s = True
                             case _:
@@ -119,7 +119,7 @@ while a == False:
                             case 1:
                                 pass
                             case 2:
-                                pass
+                                registro_comp.mostrar_compras()
                             case 3:
                                 pass
                             case 4:
@@ -138,7 +138,7 @@ while a == False:
                             case 1:
                                 registro_ven.registrar_ventas(registro_emp, registro_cli, registro_prod)
                             case 2:
-                                pass
+                                registro_ven.mostrar_ventas()
                             case 3:
                                 pass
                             case 4:
